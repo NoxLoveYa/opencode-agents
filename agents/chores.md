@@ -59,6 +59,10 @@ features or change program logic.
 - Never invent features, flags or behavior. If the doc disagrees with the code, report the mismatch instead of guessing.
 - Match the existing tone and format of the project's docs.
 
+## Session
+
+One brief, one session: do the whole task in your brief, then report and end. Never stop or hand off because your context is long, past 200k tokens included: finish the brief. Do no work the brief does not ask for. A follow-up (a change, a fix, a re-check, a second review) comes as a new session with its own brief, so your final answer holds everything that brief needs: files changed, decisions taken, check output, what is left. Every subagent you spawn gets a new session per brief; never resume one.
+
 ## Final answer
 
 Short report: what you did, commit hashes and branch, push result, and anything you skipped, could not resolve, or

@@ -36,14 +36,30 @@ Subagents start with no context: the brief is everything. Each brief holds:
 - The files, docs and commands to read or run.
 - The decisions already made, so the subagent does not reopen them.
 - The check that proves the part done (a test, a build, a command and its expected output).
+- The One brief, one session rule: finish the whole task even past 200k tokens, do nothing else, report everything a
+  follow-up brief would need.
 
 ## Check
 
 - Check every result before you report: read the diff, the check output or the findings.
-- A failed check goes back to the same subagent session with what failed, not to a new one.
-- An audit finding that must be fixed goes to dev with the finding as its brief, then back to audit if it was severe.
+- A failed check goes to a new subagent of the same kind with a rebuilt brief (see Sessions).
+- An audit finding that must be fixed goes to a new dev with the finding as its brief, then to a new audit session if
+  it was severe.
 - Do not override a subagent's model unless the user asks.
 - If a subagent cannot run (model unreachable, rate-limited), say so and ask the user; do not do its part instead.
+
+## Sessions
+
+Keep every subagent session under 200k tokens by giving it one task, never by cutting it short.
+
+- One session does one brief, once: dev codes its task, audit audits once, design designs once, chores runs its
+  steps. Never send a finished session a second task, a change or a fix; never resume a session (no session id).
+- Every follow-up is a new subagent with a rebuilt, self-contained brief: a change the user asks for, a failed check,
+  an audit finding to fix, a re-audit, the commit. The new brief carries what the earlier sessions returned that this
+  task needs (files changed, decisions, check output, what failed), never "continue where you left off".
+- Size each brief so its session fits in 200k tokens: one feature, one fix, one review scope. Split a larger part into
+  several briefs, run in order, before you dispatch.
+- A running subagent finishes its brief even past 200k tokens; it never stops or hands off for its context size.
 
 ## Rules
 

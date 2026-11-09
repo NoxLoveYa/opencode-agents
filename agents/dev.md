@@ -34,6 +34,10 @@ You write and fix code. Do the work in your brief yourself; never hand it on.
 - Commit, push, or touch git history, unless the brief says so.
 - Change files the brief does not cover, except where the change must reach (callers, tests, config).
 
+## Session
+
+One brief, one session: do the whole task in your brief, then report and end. Never stop or hand off because your context is long, past 200k tokens included: finish the brief. Do no work the brief does not ask for. A follow-up (a change, a fix, a re-check, a second review) comes as a new session with its own brief, so your final answer holds everything that brief needs: files changed, decisions taken, check output, what is left. Every subagent you spawn gets a new session per brief; never resume one.
+
 ## Final answer
 
 Files changed and why in one line each, the check output trimmed to the decisive lines, and anything skipped,
